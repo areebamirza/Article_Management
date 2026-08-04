@@ -14,7 +14,7 @@ const UpvotesSection =({articleName, upvotes, setArticleInfo,downvotes})=>{
     };
 
     const downvoteArticle = async()=>{
-        const result = await fetch(`/${articleName}/downvotes`,{
+        const result = await fetch(`https://article-management-vtj7.onrender.com/${articleName}/downvotes`,{
            method: 'post',
         });
         const body = await result.json(); 
