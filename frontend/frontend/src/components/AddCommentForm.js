@@ -30,7 +30,7 @@ const AddCommentForm = ({ articleName, setArticleInfo, edit,idx,setIdx,setEdit, 
     }
 
     const addComment = async () => {
-        const result = await fetch(`/${articleName}/add-comment`, {
+        const result = await fetch(`https://article-management-vtj7.onrender.com/${articleName}/add-comment`, {
             method: 'POST',
             body: JSON.stringify({ username, text: commentText }),
             headers: {
@@ -53,7 +53,7 @@ const AddCommentForm = ({ articleName, setArticleInfo, edit,idx,setIdx,setEdit, 
             return;
         }
 
-        const result = await fetch(`/${articleName}/update-comment/${idx}`, {
+        const result = await fetch(`https://article-management-vtj7.onrender.com/${articleName}/update-comment/${idx}`, {
             method: 'PUT',
             body: JSON.stringify({ username, text: commentText }), // include comment ID for update
             headers: {
