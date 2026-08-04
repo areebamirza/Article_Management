@@ -8,6 +8,7 @@ const UpvotesSection =({articleName, upvotes, setArticleInfo,downvotes})=>{
          const result = await fetch(`/${articleName}/upvotes`,{
             method: 'post',
          });
+       console.log(result.json())
          const body = await result.json(); 
          setArticleInfo(body);
     };
