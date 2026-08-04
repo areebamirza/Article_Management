@@ -5,10 +5,10 @@ import { BiSolidDislike } from "react-icons/bi";
 const UpvotesSection =({articleName, upvotes, setArticleInfo,downvotes})=>{
    
     const upvoteArticle = async()=>{
-         const result = await fetch(`https://article-management-vtj7.onrender.com//${articleName}/upvotes`,{
+         const result = await fetch(`https://article-management-vtj7.onrender.com/${articleName}/upvotes`,{
             method: 'post',
          });
-       console.log(result.json())
+       console.log("hbvb")
          const body = await result.json(); 
          setArticleInfo(body);
     };
