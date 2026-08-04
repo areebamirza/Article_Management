@@ -4,7 +4,7 @@ import { MdDeleteForever, MdEdit } from "react-icons/md";
 const CommentList = ({ comments,articleName,setArticleInfo,handleEdit }) => {
 
   const handleDeltee =async (key)=>{
-    const data  =  await fetch(`/${articleName}/${key}/delete`,{
+    const data  =  await fetch(`https://article-management-vtj7.onrender.com/${articleName}/${key}/delete`,{
       method:'delete'
     });
     const body = await data.json();
