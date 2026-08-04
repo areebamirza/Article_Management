@@ -23,7 +23,7 @@ const ArticlePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`/${name}`);
+      const result = await fetch(`https://article-management-vtj7.onrender.com/${name}`);
       const body = await result.json();
       if(body!==null){
         setArticleInfo(body);
