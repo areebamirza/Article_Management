@@ -33,15 +33,15 @@ const ArticlePage = () => {
       }
     }
     fetchData();
-
+    
   }, [name]);
-
+  
   const handleEdit = (comment , name , idx)=>{
     setEdit(comment)
     setEditName(name)
     setIdx(idx)
   }
-
+  
   if (!article) {
     return <h1>Article does not exist</h1>;
   }
