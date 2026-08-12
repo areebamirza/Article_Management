@@ -19,7 +19,8 @@ const AddCommentForm = ({
     validate: (values) => {
       const errors = {};
 
-      // Name validation
+      // ==================== Name Validation ====================
+
       if (!values.username.trim()) {
         errors.username = "Name is required !!";
       } else if (values.username.trim().length < 3) {
@@ -28,12 +29,16 @@ const AddCommentForm = ({
         errors.username = "Name can contain only letters !!";
       }
 
-      // Comment validation
+      // ==================== Comment Validation ====================
+
       if (!values.commentText.trim()) {
         errors.commentText = "Comment is required !!";
       } else if (values.commentText.trim().length < 13) {
         errors.commentText =
           "Comment must be at least 13 characters !!";
+      } else if (/^\d+$/.test(values.commentText.trim())) {
+        errors.commentText =
+          "Comment cannot be only numbers !!";
       }
 
       return errors;
@@ -47,6 +52,8 @@ const AddCommentForm = ({
       }
     },
   });
+
+  // ==================== Add Comment ====================
 
   const addComment = async (values) => {
     try {
@@ -76,6 +83,8 @@ const AddCommentForm = ({
       console.error("Add comment error:", error);
     }
   };
+
+  // ==================== Update Comment ====================
 
   const updateComment = async (values) => {
     try {
@@ -109,6 +118,8 @@ const AddCommentForm = ({
     }
   };
 
+  // ==================== Edit Comment Data ====================
+
   useEffect(() => {
     if (edit) {
       formik.setValues({
@@ -122,6 +133,8 @@ const AddCommentForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [edit]);
 
+  // ==================== UI ====================
+
   return (
     <div id="add-comment-form">
       <h3 className="text-secondary fw-bolder">
@@ -131,6 +144,8 @@ const AddCommentForm = ({
       <form onSubmit={formik.handleSubmit}>
         <table>
           <tbody>
+            {/* ==================== Name ==================== */}
+
             <tr>
               <td>
                 <label
@@ -168,6 +183,8 @@ const AddCommentForm = ({
                   )}
               </td>
             </tr>
+
+            {/* ==================== Comment ==================== */}
 
             <tr>
               <td>
