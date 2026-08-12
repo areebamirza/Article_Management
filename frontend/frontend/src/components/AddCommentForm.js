@@ -10,6 +10,44 @@ const AddCommentForm = ({
   setEdit,
   editName,
 }) => {
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      commentText: "",
+    },
+
+    validate: (values) => {
+      const errors = {};
+
+      // Name validation
+      if (!values.username.trim()) {
+        errors.username = "Name is required !!";
+      } else if (values.username.trim().length < 3) {
+        errors.username = "Name must be at least 3 characters !!";
+      } else if (!/^[A-Za-z ]+$/.test(values.username.trim())) {
+        errors.username = "Name can contain only letters !!";
+      }
+
+      // Comment validation
+      if (!values.commentText.trim()) {
+        errors.commentText = "Comment is required !!";
+      } else if (values.commentText.trim().length < 13) {
+        errors.commentText =
+          "Comment must be at least 13 characters !!";
+      }
+
+      return errors;
+    },
+
+    onSubmit: async (values) => {
+      if (edit) {
+        await updateComment(values);
+      } else {
+        await addComment(values);
+      }
+    },
+  });
+
   const addComment = async (values) => {
     try {
       const result = await fetch(
@@ -71,51 +109,17 @@ const AddCommentForm = ({
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      commentText: "",
-    },
-
-    validate: (values) => {
-      const errors = {};
-
-      // Name validation
-      if (!values.username.trim()) {
-        errors.username = "Name is required !!";
-      } else if (values.username.trim().length < 3) {
-        errors.username = "Name must be at least 3 characters !!";
-      } else if (!/^[A-Za-z ]+$/.test(values.username.trim())) {
-        errors.username = "Name can contain only letters !!";
-      }
-
-      // Comment validation
-      if (!values.commentText.trim()) {
-        errors.commentText = "Comment is required !!";
-      } else if (values.commentText.trim().length < 13) {
-        errors.commentText =
-          "Comment must be at least 13 characters !!";
-      }
-
-      return errors;
-    },
-
-    onSubmit: async (values) => {
-      if (edit) {
-        await updateComment(values);
-      } else {
-        await addComment(values);
-      }
-    },
-  });
-
   useEffect(() => {
     if (edit) {
       formik.setValues({
         username: edit.username || "",
         commentText: edit.text || "",
       });
+    } else {
+      formik.resetForm();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [edit]);
 
   return (
@@ -129,7 +133,10 @@ const AddCommentForm = ({
           <tbody>
             <tr>
               <td>
-                <label className="form-label" htmlFor="username">
+                <label
+                  className="form-label"
+                  htmlFor="username"
+                >
                   Name:
                 </label>
               </td>
@@ -141,7 +148,8 @@ const AddCommentForm = ({
                   type="text"
                   value={formik.values.username}
                   className={`form-control ${
-                    formik.touched.username && formik.errors.username
+                    formik.touched.username &&
+                    formik.errors.username
                       ? "is-invalid"
                       : ""
                   }`}
@@ -163,7 +171,10 @@ const AddCommentForm = ({
 
             <tr>
               <td>
-                <label className="form-label" htmlFor="commentText">
+                <label
+                  className="form-label"
+                  htmlFor="commentText"
+                >
                   Comment:
                 </label>
               </td>
